@@ -9,9 +9,17 @@ module JlTrussC
   end
 end
 
+function setup()
+  println("setup!")
+end
+
 function main()
-    # println(JlTrussC.greet())
-    JlTrussC.runTrusscTestApp()
+  setupFn = @cfunction(setup, Cvoid, ())
+  JlTrussC.setSetupFn(setupFn)
+  JlTrussC.callSetupFn()
+
+  # println(JlTrussC.greet())
+  JlTrussC.runTrusscTestApp()
 end
 
 end # module JlTrussCTest
