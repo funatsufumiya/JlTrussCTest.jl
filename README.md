@@ -10,7 +10,7 @@ Please use `trusscli` of TrussC project, and add tcxJuliaCxxWrap and build it.
 
 See https://github.com/funatsufumiya/tcxJuliaCxxWrap
 
-Then copy `.dll`/`.so`/`.dylib` into lib folder (file name should be `libJlTrussC.xxx`)
+Then copy `.dll`/`.so`/`.dylib` into lib folder (file name should be `libJlTrussC.xxx` even on Windows DLL)
 
 ### 2. Run julia code
 
