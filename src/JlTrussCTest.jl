@@ -10,7 +10,8 @@ module JlTrussC
 end
 
 function main()
-    println(JlTrussC.greet())
+    # println(JlTrussC.greet())
+    JlTrussC.runTrusscTestApp()
 end
 
 end # module JlTrussCTest
