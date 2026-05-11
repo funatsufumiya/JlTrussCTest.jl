@@ -4,11 +4,13 @@ TrussC C++ call test from Julia using using [tcxJuliaCxxWrap](https://github.com
 
 ## Usage
 
-### 1. [Optional] Build cpp code (using CMake)
+### 1. Build cpp code (using CMake)
 
 Please use `trusscli` of TrussC project, and add tcxJuliaCxxWrap and build it.
 
 See https://github.com/funatsufumiya/tcxJuliaCxxWrap
+
+Then copy `.dll`/`.so`/`.dylib` into lib folder (file name should be `libJlTrussC.xxx`)
 
 ### 2. Run julia code
 
