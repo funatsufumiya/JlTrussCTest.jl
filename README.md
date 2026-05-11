@@ -1,6 +1,6 @@
-# CppWrapTest.jl
+# JlTrussCTest.jl
 
-Simple C++ call test from Julia using CxxWrap.jl
+TrussC C++ call test from Julia using using [tcxJuliaCxxWrap](https://github.com/funatsufumiya/tcxJuliaCxxWrap)
 
 ## Usage
 
