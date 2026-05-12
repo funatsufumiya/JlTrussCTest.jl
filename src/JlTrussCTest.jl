@@ -13,13 +13,17 @@ function setup()
   println("setup!")
 end
 
+function keyPressed(key::Cint)
+  c = Char(key)
+  println("key: ", c, " (", key ,")")
+end
+
 function main()
-  setupFn = @cfunction(setup, Cvoid, ())
-  JlTrussC.setSetupFn(setupFn)
-  JlTrussC.callSetupFn()
+  JlTrussC.setSetupFn(@cfunction(setup, Cvoid, ()))
+  JlTrussC.setKeyPressedFn(@cfunction(keyPressed, Cvoid, (Cint,)))
 
   # println(JlTrussC.greet())
-  JlTrussC.runTrusscTestApp()
+  JlTrussC.runTrusscApp()
 end
 
 end # module JlTrussCTest
