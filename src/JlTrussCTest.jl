@@ -1,16 +1,26 @@
 module JlTrussCTest
 
-module JlTrussC
+module TrussC
   using CxxWrap
   @wrapmodule(() -> normpath(joinpath(@__DIR__, "..", "lib","libJlTrussC")))
 
   function __init__()
     @initcxx
   end
-end
+end # module TrussC
 
 function setup()
   println("setup!")
+end
+
+function draw()
+  TrussC.clear(0.12)
+
+  # Rotating box
+  TrussC.noFill();
+  TrussC.translate(TrussC.getWindowWidth() / 2, TrussC.getWindowHeight() / 2);
+  TrussC.rotate(TrussC.getElapsedTimef() * 0.1, TrussC.getElapsedTimef() * 0.15, 0);
+  TrussC.drawBox(200.0);
 end
 
 function keyPressed(key::Cint)
@@ -19,11 +29,11 @@ function keyPressed(key::Cint)
 end
 
 function main()
-  JlTrussC.setSetupFn(@cfunction(setup, Cvoid, ()))
-  JlTrussC.setKeyPressedFn(@cfunction(keyPressed, Cvoid, (Cint,)))
+  TrussC.setSetupFn(@cfunction(setup, Cvoid, ()))
+  TrussC.setKeyPressedFn(@cfunction(keyPressed, Cvoid, (Cint,)))
 
-  # println(JlTrussC.greet())
-  JlTrussC.runTrusscApp()
+  # println(TrussC.greet())
+  TrussC.runTrusscApp()
 end
 
 end # module JlTrussCTest
