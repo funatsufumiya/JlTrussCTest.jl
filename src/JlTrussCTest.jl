@@ -17,6 +17,8 @@ f32(d::Int32) = Float32(d)
 
 function setup()
   println("setup!")
+
+  TrussC.setFps(f32(60.0))
 end
 
 function draw()
