@@ -17,5 +17,6 @@ Then copy `.dll`/`.so`/`.dylib` into lib folder (file name should be `libJlTruss
 ```bash
 $ julia --project=@. -e 'using Pkg; Pkg.instantiate()'
 $ julia --project=@. -e 'using JlTrussCTest; JlTrussCTest.main();'
-# Hello from JlTrussC C++!!
 ```
+
+![screenshot](docs/screenshot.png)
