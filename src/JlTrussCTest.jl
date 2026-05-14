@@ -63,6 +63,10 @@ module TrussC
     return :( TrussC.setFilesDroppedFn(@cfunction($fn, Cvoid, (TrussC.FilesRef,))) )
   end
 
+  macro exit(fn)
+    return :( TrussC.setExitFn(@cfunction($fn, Cvoid, ())) )
+  end
+
 end # module TrussC
 
 Base.:+(x::TrussC.Vec2, y::TrussC.Vec2) = TrussC.add(x, y)
@@ -76,8 +80,35 @@ Base.:/(x::TrussC.Vec2, y::Number) = TrussC.div(x, y)
 Base.:-(x::TrussC.Vec2, y::Number) = TrussC.sub(x, y)
 Base.:+(y::Number, x::TrussC.Vec2) = TrussC.add(x, y)
 Base.:*(y::Number, x::TrussC.Vec2) = TrussC.mul(x, y)
-Base.:/(y::Number, x::TrussC.Vec2) = TrussC.div(x, y)
-Base.:-(y::Number, x::TrussC.Vec2) = TrussC.sub(x, y)
+
+Base.:+(x::TrussC.Vec3, y::TrussC.Vec3) = TrussC.add(x, y)
+Base.:*(x::TrussC.Vec3, y::TrussC.Vec3) = TrussC.mul(x, y)
+Base.:/(x::TrussC.Vec3, y::TrussC.Vec3) = TrussC.div(x, y)
+Base.:-(x::TrussC.Vec3, y::TrussC.Vec3) = TrussC.sub(x, y)
+Base.:(==)(x::TrussC.Vec3, y::TrussC.Vec3) = TrussC.eq(x, y)
+Base.:+(x::TrussC.Vec3, y::Number) = TrussC.add(x, y)
+Base.:*(x::TrussC.Vec3, y::Number) = TrussC.mul(x, y)
+Base.:/(x::TrussC.Vec3, y::Number) = TrussC.div(x, y)
+Base.:-(x::TrussC.Vec3, y::Number) = TrussC.sub(x, y)
+Base.:+(y::Number, x::TrussC.Vec3) = TrussC.add(x, y)
+Base.:*(y::Number, x::TrussC.Vec3) = TrussC.mul(x, y)
+
+Base.:+(x::TrussC.Vec4, y::TrussC.Vec4) = TrussC.add(x, y)
+Base.:-(x::TrussC.Vec4, y::TrussC.Vec4) = TrussC.sub(x, y)
+Base.:(==)(x::TrussC.Vec4, y::TrussC.Vec4) = TrussC.eq(x, y)
+Base.:+(x::TrussC.Vec4, y::Number) = TrussC.add(x, y)
+Base.:*(x::TrussC.Vec4, y::Number) = TrussC.mul(x, y)
+Base.:/(x::TrussC.Vec4, y::Number) = TrussC.div(x, y)
+Base.:-(x::TrussC.Vec4, y::Number) = TrussC.sub(x, y)
+Base.:+(y::Number, x::TrussC.Vec4) = TrussC.add(x, y)
+Base.:*(y::Number, x::TrussC.Vec4) = TrussC.mul(x, y)
+
+Base.:*(x::TrussC.Mat4, y::TrussC.Mat4) = TrussC.mul(x, y)
+Base.:*(x::TrussC.Mat4, y::TrussC.Vec4) = TrussC.mul(x, y)
+Base.:*(x::TrussC.Mat4, y::TrussC.Vec3) = TrussC.mul(x, y)
+Base.:(==)(x::TrussC.Mat4, y::TrussC.Mat4) = TrussC.eq(x, y)
+
+Base.:(==)(x::TrussC.Quaternion, y::TrussC.Quaternion) = TrussC.eq(x, y)
 
 Base.show(io::IO, v::TrussC.Vec2) = print(io, "Vec2(",TrussC.x(v),", ",TrussC.y(v),")")
 Base.show(io::IO, v::TrussC.Vec3) = print(io, "Vec3(",TrussC.x(v),", ",TrussC.y(v),", ",TrussC.z(v),")")
