@@ -9,6 +9,27 @@ module TrussC
   function __init__()
     @initcxx
   end
+
+  macro setup(fn)
+    return :( TrussC.setSetupFn(@cfunction($fn, Cvoid, ())) )
+  end
+
+  macro update(fn)
+    return :( TrussC.setUpdateFn(@cfunction($fn, Cvoid, ())) )
+  end
+
+  macro draw(fn)
+    return :( TrussC.setDrawFn(@cfunction($fn, Cvoid, ())) )
+  end
+
+  macro keyPressed(fn)
+    return :( TrussC.setKeyPressedFn(@cfunction($fn, Cvoid, (Cint,))) )
+  end
+
+  macro keyReleased(fn)
+    return :( TrussC.setKeyReleasedFn(@cfunction($fn, Cvoid, (Cint,))) )
+  end
+
 end # module TrussC
 
 function setup()
@@ -38,9 +59,9 @@ function keyPressed(key::Cint)
 end
 
 function main()
-  TrussC.setSetupFn(@cfunction(setup, Cvoid, ()))
-  TrussC.setDrawFn(@cfunction(draw, Cvoid, ()))
-  TrussC.setKeyPressedFn(@cfunction(keyPressed, Cvoid, (Cint,)))
+  TrussC.@setup(setup)
+  TrussC.@draw(draw)
+  TrussC.@keyPressed(keyPressed)
 
   # println(TrussC.greet())
   TrussC.runTrusscApp()
