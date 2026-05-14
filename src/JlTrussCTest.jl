@@ -42,6 +42,18 @@ module TrussC
     return :( TrussC.setMouseReleasedFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref, Cint,))) )
   end
 
+  macro mouseMoved(fn)
+    return :( TrussC.setMouseMovedFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref,))) )
+  end
+
+  macro mouseScrolled(fn)
+    return :( TrussC.setMouseScrolledFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref,))) )
+  end
+
+  macro mouseDragged(fn)
+    return :( TrussC.setMouseDraggedFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref, Cint,))) )
+  end
+
 end # module TrussC
 
 function setup()
@@ -74,11 +86,26 @@ function mousePressed(pos::TrussC.Vec2Ref, button::Cint)
   println("pos: ", TrussC.x(pos), ", ", TrussC.y(pos), " (", button ,")")
 end
 
+function mouseScrolled(delta::TrussC.Vec2Ref)
+  println("delta: ", TrussC.x(delta), ", ", TrussC.y(delta))
+end
+
+function mouseMoved(pos::TrussC.Vec2Ref)
+  println("pos: ", TrussC.x(pos), ", ", TrussC.y(pos))
+end
+
+function mouseDragged(pos::TrussC.Vec2Ref, button::Cint)
+  println("pos: ", TrussC.x(pos), ", ", TrussC.y(pos), " (", button ,")")
+end
+
 function main()
   TrussC.@setup(setup)
   TrussC.@draw(draw)
   TrussC.@keyPressed(keyPressed)
   TrussC.@mousePressed(mousePressed)
+  # TrussC.@mouseScrolled(mouseScrolled)
+  # TrussC.@mouseMoved(mouseMoved)
+  # TrussC.@mouseDragged(mouseDragged)
 
   # println(TrussC.greet())
   TrussC.runTrusscApp()
