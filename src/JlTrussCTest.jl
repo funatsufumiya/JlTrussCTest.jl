@@ -1,7 +1,7 @@
 module JlTrussCTest
 
 using Printf
-using CxxWrap: CxxRef
+using CxxWrap: CxxRef, StdVector
 
 module TrussC
   using CxxWrap
@@ -13,6 +13,7 @@ module TrussC
 
   Vec2Ref = CxxRef{TrussC.Vec2}
   Vec3Ref = CxxRef{TrussC.Vec3}
+  FilesRef = CxxRef{StdVector{StdString}}
 
   macro setup(fn)
     return :( TrussC.setSetupFn(@cfunction($fn, Cvoid, ())) )
@@ -52,6 +53,14 @@ module TrussC
 
   macro mouseDragged(fn)
     return :( TrussC.setMouseDraggedFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref, Cint,))) )
+  end
+
+  macro windowResized(fn)
+    return :( TrussC.setWindowResizedFn(@cfunction($fn, Cvoid, (Cint, Cint,))) )
+  end
+
+  macro filesDropped(fn)
+    return :( TrussC.setFilesDroppedFn(@cfunction($fn, Cvoid, (TrussC.FilesRef,))) )
   end
 
 end # module TrussC
@@ -98,6 +107,17 @@ function mouseDragged(pos::TrussC.Vec2Ref, button::Cint)
   println("pos: ", TrussC.x(pos), ", ", TrussC.y(pos), " (", button ,")")
 end
 
+function windowResized(width::Cint, height::Cint)
+  println("window resized: ", width, ", ", height)
+end
+
+function filesDropped(files::TrussC.FilesRef)
+  println("files dropped length: ", length(files))
+  for file in files
+    println("file: ", file)
+  end
+end
+
 function main()
   TrussC.@setup(setup)
   TrussC.@draw(draw)
@@ -106,6 +126,8 @@ function main()
   # TrussC.@mouseScrolled(mouseScrolled)
   # TrussC.@mouseMoved(mouseMoved)
   # TrussC.@mouseDragged(mouseDragged)
+  TrussC.@windowResized(windowResized)
+  TrussC.@filesDropped(filesDropped)
 
   # println(TrussC.greet())
   TrussC.runTrusscApp()
