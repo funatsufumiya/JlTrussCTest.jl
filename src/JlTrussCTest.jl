@@ -1,6 +1,7 @@
 module JlTrussCTest
 
 using Printf
+using CxxWrap: CxxRef
 
 module TrussC
   using CxxWrap
@@ -9,6 +10,9 @@ module TrussC
   function __init__()
     @initcxx
   end
+
+  Vec2Ref = CxxRef{TrussC.Vec2}
+  Vec3Ref = CxxRef{TrussC.Vec3}
 
   macro setup(fn)
     return :( TrussC.setSetupFn(@cfunction($fn, Cvoid, ())) )
@@ -28,6 +32,14 @@ module TrussC
 
   macro keyReleased(fn)
     return :( TrussC.setKeyReleasedFn(@cfunction($fn, Cvoid, (Cint,))) )
+  end
+
+  macro mousePressed(fn)
+    return :( TrussC.setMousePressedFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref, Cint,))) )
+  end
+
+  macro mouseReleased(fn)
+    return :( TrussC.setMouseReleasedFn(@cfunction($fn, Cvoid, (TrussC.Vec2Ref, Cint,))) )
   end
 
 end # module TrussC
@@ -58,10 +70,15 @@ function keyPressed(key::Cint)
   println("key: ", c, " (", key ,")")
 end
 
+function mousePressed(pos::TrussC.Vec2Ref, button::Cint)
+  println("pos: ", TrussC.x(pos), ", ", TrussC.y(pos), " (", button ,")")
+end
+
 function main()
   TrussC.@setup(setup)
   TrussC.@draw(draw)
   TrussC.@keyPressed(keyPressed)
+  TrussC.@mousePressed(mousePressed)
 
   # println(TrussC.greet())
   TrussC.runTrusscApp()
