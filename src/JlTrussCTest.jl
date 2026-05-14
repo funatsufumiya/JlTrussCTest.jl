@@ -11,29 +11,25 @@ module TrussC
   end
 end # module TrussC
 
-f32(d::Float64) = Float32(d)
-f32(d::Int64) = Float32(d)
-f32(d::Int32) = Float32(d)
-
 function setup()
   println("setup!")
 
-  TrussC.setFps(f32(60.0))
+  TrussC.setFps(60.0f0)
 end
 
 function draw()
-  TrussC.clear(f32(0.12), f32(1.0))
+  TrussC.clear(0.12f0, 1.0f0)
 
   # Rotating box
   TrussC.pushMatrix();
   TrussC.noFill();
-  TrussC.translate(f32(TrussC.getWindowWidth() / 2), f32(TrussC.getWindowHeight() / 2));
-  TrussC.rotate(f32(TrussC.getElapsedTimef() * 0.1), f32(TrussC.getElapsedTimef() * 0.15), f32(0));
-  TrussC.drawBox(f32(200.0));
+  TrussC.translate(TrussC.getWindowWidth() / 2.0f0, TrussC.getWindowHeight() / 2.0f0);
+  TrussC.rotate(Float32(TrussC.getElapsedTimef() * 0.1f0), Float32(TrussC.getElapsedTimef() * 0.15f0), 0.0f0);
+  TrussC.drawBox(200.0f0);
   TrussC.popMatrix();
 
   # show fps
-  TrussC.drawBitmapString(@sprintf("fps: %.1f", TrussC.getFps()), f32(30), f32(30));
+  TrussC.drawBitmapString(@sprintf("fps: %.1f", TrussC.getFps()), 30f0, 30f0);
 end
 
 function keyPressed(key::Cint)
