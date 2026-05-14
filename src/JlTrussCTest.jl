@@ -65,6 +65,26 @@ module TrussC
 
 end # module TrussC
 
+Base.:+(x::TrussC.Vec2, y::TrussC.Vec2) = TrussC.add(x, y)
+Base.:*(x::TrussC.Vec2, y::TrussC.Vec2) = TrussC.mul(x, y)
+Base.:/(x::TrussC.Vec2, y::TrussC.Vec2) = TrussC.div(x, y)
+Base.:-(x::TrussC.Vec2, y::TrussC.Vec2) = TrussC.sub(x, y)
+Base.:(==)(x::TrussC.Vec2, y::TrussC.Vec2) = TrussC.eq(x, y)
+Base.:+(x::TrussC.Vec2, y::Number) = TrussC.add(x, y)
+Base.:*(x::TrussC.Vec2, y::Number) = TrussC.mul(x, y)
+Base.:/(x::TrussC.Vec2, y::Number) = TrussC.div(x, y)
+Base.:-(x::TrussC.Vec2, y::Number) = TrussC.sub(x, y)
+Base.:+(y::Number, x::TrussC.Vec2) = TrussC.add(x, y)
+Base.:*(y::Number, x::TrussC.Vec2) = TrussC.mul(x, y)
+Base.:/(y::Number, x::TrussC.Vec2) = TrussC.div(x, y)
+Base.:-(y::Number, x::TrussC.Vec2) = TrussC.sub(x, y)
+
+Base.show(io::IO, v::TrussC.Vec2) = print(io, "Vec2(",TrussC.x(v),", ",TrussC.y(v),")")
+Base.show(io::IO, v::TrussC.Vec3) = print(io, "Vec3(",TrussC.x(v),", ",TrussC.y(v),", ",TrussC.z(v),")")
+Base.show(io::IO, v::TrussC.Vec4) = print(io, "Vec4(",TrussC.x(v),", ",TrussC.y(v),", ",TrussC.z(v),", ",TrussC.w(v),")")
+Base.show(io::IO, v::TrussC.Quaternion) = print(io, "Quaternion(",TrussC.w(v),", ",TrussC.x(v),", ",TrussC.y(v),", ",TrussC.z(v),")")
+Base.show(io::IO, v::TrussC.Color) = print(io, "Color(",TrussC.r(v),", ",TrussC.g(v),", ",TrussC.b(v),", ",TrussC.a(v),")")
+
 function setup()
   println("setup!")
 
