@@ -1,5 +1,8 @@
 # JlTrussCTest.jl
 
+> [!Warning]
+> This project is moved to [TrussCExample.jl](https://github.com/funatsufumiya/TrussCExample.jl)
+
 [TrussC](https://trussc.org/) C++ call test from Julia using [tcxJuliaCxxWrap](https://github.com/funatsufumiya/tcxJuliaCxxWrap)
 
 ## Usage
